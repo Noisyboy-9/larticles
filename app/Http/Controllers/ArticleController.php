@@ -25,12 +25,25 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Article $article
+     * @return ArticleResource
      */
-    public function store(Request $request)
+    public function store(Request $request, Article $article)
     {
-        //
+//        validating the request
+        $attributes = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'body' => 'required|min:5'
+        ]);
+
+//        setting the article model fields
+        $article->title = $attributes['title'];
+        $article->body = $attributes['body'];
+
+        if ($article->save()) {
+            return new ArticleResource($article);
+        }
     }
 
     /**
@@ -51,13 +64,29 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Article $article
+     * @return ArticleResource
      */
     public function update(Request $request, $id)
     {
-        //
+//        validating the request
+        $attributes = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'body' => 'required|min:5'
+        ]);
+
+//        finding the model
+        $article = Article::findOrFail($id);
+
+//      updating the article model
+        $article->title = $attributes['title'];
+        $article->body = $attributes['body'];
+
+//        saving and returning the model as a resource
+        if ( $article->save() ) {
+            return new ArticleResource($article);
+        }
     }
 
     /**
