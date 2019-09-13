@@ -15,18 +15,13 @@ class ArticleController extends Controller
      */
     public function index()
     {
-//        get articles
-        $aricles = Article::paginate(15);
+//        getting all articles
+        $articles = Article::paginate(15);
 
-//        return collection of articles as a resource
-        return  ArticleResource::collection($aricles);
+//        returning all articles as a collection
+        return  ArticleResource::collection($articles);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     /**
      * Store a newly created resource in storage.
      *
@@ -46,10 +41,10 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        // get a single article
+//        getting the article
         $article = Article::findOrFail($id);
 
-        // return single article as a resource
+//        returning the article as a resource
         return new ArticleResource($article);
     }
 
