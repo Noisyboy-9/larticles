@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Article;
+use App\Http\Resources\ArticleResource;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -13,7 +15,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+//        get articles
+        $aricles = Article::paginate(15);
+
+//        return collection of articles as a resource
+        return  ArticleResource::collection($aricles);
     }
 
     /**
