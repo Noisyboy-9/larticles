@@ -65,7 +65,7 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Article $article
+     * @param $id
      * @return ArticleResource
      */
     public function update(Request $request, $id)
@@ -93,10 +93,16 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return ArticleResource
      */
-    public function destroy($id)
+    public function destroy($id, Article $article)
     {
-        //
+//        getting the specified article
+        $article = Article::findOrFail($id);
+
+//        deleting the article
+        if ($article->delete()) {
+            return new ArticleResource($article);
+        }
     }
 }

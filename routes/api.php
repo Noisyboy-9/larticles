@@ -30,4 +30,4 @@ Route::post('/article' , 'ArticleController@store');
 Route::put('/article/{id}' , 'ArticleController@update');
 
 // Delete article
-Route::delete('/articles' , 'ArticleController@destroy');
+Route::delete('/article/{id}' , 'ArticleController@destroy');
