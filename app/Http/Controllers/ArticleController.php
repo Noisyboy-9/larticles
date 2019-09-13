@@ -11,7 +11,7 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -42,11 +42,15 @@ class ArticleController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return ArticleResource
      */
     public function show($id)
     {
-        //
+        // get a single article
+        $article = Article::findOrFail($id);
+
+        // return single article as a resource
+        return new ArticleResource($article);
     }
 
     /**
